@@ -1,0 +1,39 @@
+@charset "utf-8";
+
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent; /* 清除点击高亮效果 */
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+a:hover,
+a:link,
+a:visited,
+a:active {
+  text-decoration: none;
+}
+
+input,
+textarea {
+  outline: none;
+  border: none;
+  resize: none;
+  -webkit-appearance: none; /* 清除移动端输入框特有的样式 */
+}
+
+body {
+  font-size: 14px;
+  font-weight: 400;
+  color: #000;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Arial', 'Microsoft YaHei', '黑体', '宋体', sans-serif !important;
+}

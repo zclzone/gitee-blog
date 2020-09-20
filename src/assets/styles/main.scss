@@ -1,0 +1,54 @@
+@import url('./reset.scss');
+@import url('./icon/myIcon/iconfont.css');
+
+:root {
+  --main-color: #2b4c59; //主色，最深
+  --secondary-color: #316c72; //次色，稍浅色
+  --light-color: #84a59d; //浅色
+  --front-color: #fff; //前景色
+  --bg-color: #f3f3f3; //背景色
+}
+
+html,
+body {
+  height: 100%;
+  // scrollbar-width: none;
+  // -ms-overflow-style: none;
+  // overflow-x: hidden;
+  // overflow-y: auto;
+  // &::-webkit-scrollbar {
+  //   display: none;
+  // }
+}
+
+html[theme='dark-mode'] {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+.el-row {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.el-tag {
+  color: var(--front-color) !important;
+  font-weight: 600;
+  margin: 10px 5px 0;
+  .el-tag__close {
+    color: var(--front-color) !important;
+  }
+}
+
+.el-tabs__item {
+  color: var(--main-color) !important;
+  &.is-active {
+    color: var(--secondary-color) !important;
+  }
+  &:hover {
+    color: var(--secondary-color) !important;
+  }
+}
+
+.el-tabs__active-bar {
+  background: var(--secondary-color) !important;
+}
