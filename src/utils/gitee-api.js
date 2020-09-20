@@ -125,7 +125,7 @@ const giteeApi = {
 
   forkRepo: async _ => {
     const data = { access_token: getToken() }
-    const [err, res] = await to(axios.post(`${baseApiURL}/repos/zclzone/blog/forks`, data))
+    const [err, res] = await to(axios.post(`${baseApiURL}/repos/zclzone/gitee-blog/forks`, data))
     if (err) {
       Message.error(`初始化失败，请刷新重试： ${err} `)
       return {

@@ -1,5 +1,6 @@
 module.exports = {
   title: '奇思笔记',
+  publicRepo: 'gitee-blog',
   siteOptions: {
     title: '奇思笔记',
     subtitle: '孤光自照，肝胆皆冰雪',
@@ -16,7 +17,7 @@ module.exports = {
   },
   commentOptions: {
     owner: 'zclzone',
-    repo: 'blog-comment',
+    repo: 'gitee-blog-src',
     clientId: '13f12c4d3203ceee7d22',
     clientSecret: '4de1abe7fa4d21bc1c76b6e03a86f0cc2d4afc83'
   },
@@ -29,6 +30,6 @@ module.exports = {
   giteeApiOptions: {
     baseApiURL: 'https://gitee.com/api/v5',
     owner: 'zclzone',
-    repo: 'blog'
+    repo: 'gitee-blog'
   }
 }
