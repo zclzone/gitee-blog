@@ -40,11 +40,16 @@ export default {
     }
   },
   async mounted() {
-    if (getToken) {
+    // if (getToken()) {
+    if (true) {
       // 有token时实时抓取
       const file = await giteeApi.getFile(`db/_post/postList.json`)
       if (!file) {
         this.$message.error('No data')
+        const hasRepo = await giteeApi.checkRepo()
+        if (!hasRepo) {
+          this.$router.push('/admin')
+        }
         return
       }
       this.postListData = JSON.parse(file.content).content.data

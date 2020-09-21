@@ -38,7 +38,8 @@ export default {
   methods: {
     async getPostHtml() {
       let postContent = ''
-      if (getToken()) {
+      // if (getToken()) {
+      if (true) {
         const file = await giteeApi.getFile(`db/_post/list/${this.name}.md`)
         if (!file) {
           return this.postHtml = '请求失败'
