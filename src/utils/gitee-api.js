@@ -90,7 +90,7 @@ const giteeApi = {
         msg: `删除失败： ${err}`
       }
     }
-    giteeApi.postRemind()
+    // giteeApi.postRemind()
     return {
       status: 'OK',
       msg: `删除成功： ${fileName}`
@@ -107,7 +107,7 @@ const giteeApi = {
         msg: `更新失败： ${err}`
       }
     }
-    giteeApi.postRemind()
+    // giteeApi.postRemind()
     return {
       status: 'OK',
       msg: `更新成功： ${fileName}`
@@ -132,7 +132,7 @@ const giteeApi = {
         status: 'Fail'
       }
     }
-    giteeApi.postRemind()
+    // giteeApi.postRemind()
     return {
       status: 'OK'
     }

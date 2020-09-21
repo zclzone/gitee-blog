@@ -60,7 +60,11 @@ export default {
         location.href = getOauthUrl()
       }
     } else {
-      window.name = location.href
+      let callback_url = location.href
+      if (from.path === '/index') {
+        callback_url = location.href.replace('/index', '/admin')
+      }
+      window.name = callback_url
       location.href = getOauthUrl()
     }
   },
