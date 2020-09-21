@@ -35,7 +35,7 @@ module.exports = {
   // gitee api
   giteeApiOptions: {
     baseApiURL: 'https://gitee.com/api/v5',
-    owner: 'qszone',
+    owner: 'zclzone',
     repo: 'gitee-blog-db'
   }
 }
