@@ -155,7 +155,7 @@ export default {
     }
   }
   .el-table {
-    height: calc(100% - 40px);
+    height: calc(100% - 50px);
   }
   .el-pagination {
     position: absolute;

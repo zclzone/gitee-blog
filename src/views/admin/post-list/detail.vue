@@ -11,7 +11,7 @@
       <el-row class="form-row">
         <el-col :span="5">
           <el-form-item label="标题">
-            <el-input v-model="name" placeholder="文章标题"></el-input>
+            <el-input v-model="name" placeholder="文章标题" :disabled="action == 'edit'"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="4" :offset="1">
@@ -34,6 +34,7 @@
 
 <script>
 import { giteeApi } from '@/utils/gitee-api'
+import { getUser } from '@/utils/cookie-util'
 
 export default {
   beforeRouteEnter(to, from, next) {
@@ -59,6 +60,7 @@ export default {
       name: this.$route.query.name,
       category: this.$route.query.category || '',
       description: this.$route.query.description || '',
+      author: getUser() && JSON.parse(getUser()).name || ''
     }
   },
   mounted() {
@@ -105,12 +107,12 @@ export default {
         this.$message.error(res.msg)
         return
       }
-      this.postList.content.data.push({
+      this.postList.content.data.unshift({
         name: this.name,
         path: `db/_post/list/${this.name}.md`,
         description: this.description,
         category: this.category,
-        author: 'Ronnie Zhang',
+        author: this.author,
         cover: "",
         date: new Date()
       })
@@ -136,9 +138,7 @@ export default {
             name: this.name,
             description: this.description,
             category: this.category,
-            author: 'Ronnie Zhang',
             cover: "",
-            date: new Date()
           }
         }
         return item
@@ -146,7 +146,6 @@ export default {
       const res2 = await giteeApi.updateFile(this.postList.path, this.postList.sha, JSON.stringify(this.postList))
       if (res2.status !== 'OK') {
         this.$message.error(res2.msg)
-
         return
       }
       this.$message(res2.msg)
