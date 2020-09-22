@@ -6,10 +6,19 @@
 </template>
 
 <script>
+import { giteeApi } from '@/utils/gitee-api'
+
 import AppHeader from './components/app-header'
 import AppMain from './components/app-main'
 
 export default {
+  async beforeRouteEnter (to, from, next) {
+    const hasRepo = await giteeApi.checkRepo()
+    if (!hasRepo) {
+      next('/admin')
+    }
+    next()
+  },
   components: {
     AppHeader,
     AppMain

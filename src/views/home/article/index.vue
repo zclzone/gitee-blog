@@ -19,16 +19,15 @@ import Banner from '@/components/banner'
 import Primary from './components/index-primary'
 import Secondary from './components/index-secondary'
 
-const { siteOptions } = require('@/settings.js')
-
 import { setPageTitle } from '@/utils/page-title-util'
 
 import { giteeApi } from '@/utils/gitee-api'
 import { getToken } from '@/utils/cookie-util'
 
+const { siteOptions } = require('@/settings.js')
 
 export default {
-  data() {
+  data () {
     return {
       bannerData: {
         title: siteOptions.title.split('').join(' '),
@@ -39,17 +38,13 @@ export default {
       headerTitle: ''
     }
   },
-  async mounted() {
+  async mounted () {
     // if (getToken()) {
     if (true) {
       // 有token时实时抓取
       const file = await giteeApi.getFile(`db/_post/postList.json`)
       if (!file) {
         this.$message.error('No data')
-        const hasRepo = await giteeApi.checkRepo()
-        if (!hasRepo) {
-          this.$router.push('/admin')
-        }
         return
       }
       this.postListData = JSON.parse(file.content).content.data
@@ -69,7 +64,7 @@ export default {
     Banner, Primary, Secondary
   },
   methods: {
-    filterPostList() {
+    filterPostList () {
       const { category, keyword } = this.$route.query
       if (category) {
         this.headerTitle = `类别：<i>"${category}"</i>`
@@ -92,7 +87,7 @@ export default {
   watch: {
     '$route.query': {
       immediate: true,
-      handler({ category, keyword }) {
+      handler ({ category, keyword }) {
         this.filterPostList()
       }
     }

@@ -23,7 +23,7 @@ import AppMenu from './components/app-menu'
 import AppHeader from './components/app-header'
 import AppMain from './components/app-main'
 export default {
-  async beforeRouteEnter(to, from, next) {
+  async beforeRouteEnter (to, from, next) {
     const token = getToken()
     if (token) {
       //每次路由改变延长Cookie过期时间
@@ -55,16 +55,16 @@ export default {
           next({ ...to })
         }
       } catch {
-        location.hash = ''
-        window.name = location.href + '/admin'
+        location.hash = '/admin'
+        window.name = location.href
         location.href = getOauthUrl()
       }
     } else {
-      let callback_url = location.href
-      if (from.path === '/index') {
-        callback_url = location.href.replace('/index', '/admin')
+      let hashPath = location.hash && location.hash.replace('#', '') || ''
+      if (!hashPath.startsWith('/admin')) {
+        location.hash = '/admin'
       }
-      window.name = callback_url
+      window.name = location.href
       location.href = getOauthUrl()
     }
   },
