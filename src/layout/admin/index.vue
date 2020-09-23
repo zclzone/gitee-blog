@@ -32,15 +32,15 @@ export default {
         delete to.query.code
         next({ ...to })
       } else {
-        const hasRepo = await giteeApi.checkRepo()
-        if (!hasRepo) {
-          if (confirm('检测到你未创建博客，是否一键初始化你的博客')) {
-            const res = await giteeApi.forkRepo()
-            if (res.status === 'OK') {
-              alert('初始化成功，如数据未显示请尝试刷新')
-            }
-          }
-        }
+        // const hasRepo = await giteeApi.checkRepo()
+        // if (!hasRepo) {
+        //   if (confirm('检测到你未创建博客，是否一键初始化你的博客')) {
+        //     const res = await giteeApi.forkRepo()
+        //     if (res.status === 'OK') {
+        //       alert('初始化成功，如数据未显示请尝试刷新')
+        //     }
+        //   }
+        // }
         next()
       }
       return

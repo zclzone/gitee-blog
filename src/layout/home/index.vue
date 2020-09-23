@@ -13,10 +13,6 @@ import AppMain from './components/app-main'
 
 export default {
   async beforeRouteEnter (to, from, next) {
-    const hasRepo = await giteeApi.checkRepo()
-    if (!hasRepo) {
-      next('/admin')
-    }
     next()
   },
   components: {

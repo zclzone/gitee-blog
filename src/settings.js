@@ -9,7 +9,7 @@ module.exports = {
     subtitle: '孤光自照，肝胆皆冰雪',
     author: '张传龙',
     description: '痴迷于前端的全栈工程师',
-    github: 'https://github.com/zclzone',
+    github: 'https://github.com/zclzone/gitee-blog',
     navMenu: {
       '/index': '首页',
       '/article': '文章',
