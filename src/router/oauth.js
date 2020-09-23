@@ -1,3 +1,7 @@
+/**
+ * 此文件已停用，main.js并未引用此文件
+ */
+
 import router from './index'
 import { getToken, setToken } from '@/utils/cookie-util'
 import { getAccessToken, getOauthUrl } from '@/utils/oauth-util'

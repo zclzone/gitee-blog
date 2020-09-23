@@ -33,8 +33,9 @@
 </template>
 
 <script>
+const { siteOptions } = require('@/settings')
+
 import { giteeApi } from '@/utils/gitee-api'
-import { getUser } from '@/utils/cookie-util'
 
 export default {
   beforeRouteEnter(to, from, next) {
@@ -60,7 +61,7 @@ export default {
       name: this.$route.query.name,
       category: this.$route.query.category || '',
       description: this.$route.query.description || '',
-      author: getUser() && JSON.parse(getUser()).name || ''
+      author: siteOptions.author || ''
     }
   },
   mounted() {

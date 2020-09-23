@@ -1,23 +1,13 @@
 import axios from '@/ajax/request'
-import { getToken, getUser } from '@/utils/cookie-util'
+import { getToken } from '@/utils/cookie-util'
 import { to, utf8ToBase64, base64ToUtf8 } from './common'
-import { Message, Notification } from 'element-ui'
 
-const { giteeApiOptions } = require('@/settings.js')
+const { giteeApiOptions } = require('@/settings')
 const { baseApiURL, owner, repo } = giteeApiOptions
 
 const baseRepoURL = `${baseApiURL}/repos/${owner}/${repo}`
 
 const giteeApi = {
-  postRemind() {
-    Notification({
-      title: '发布提醒',
-      dangerouslyUseHTMLString: true,
-      duration: 0,
-      message: `<a href='${JSON.parse(getUser()).html_url}/${repo}/pages' target='_blank'>请前往gitee发布</a>`
-    })
-  },
-
   getFileSha: async (fileName) => {
     const params = { access_token: getToken() }
     const [err, res] = await to(axios.get(`${baseRepoURL}/contents/${fileName}`, { params }))
@@ -90,7 +80,6 @@ const giteeApi = {
         msg: `删除失败： ${err}`
       }
     }
-    // giteeApi.postRemind()
     return {
       status: 'OK',
       msg: `删除成功： ${fileName}`
@@ -107,7 +96,6 @@ const giteeApi = {
         msg: `更新失败： ${err}`
       }
     }
-    // giteeApi.postRemind()
     return {
       status: 'OK',
       msg: `更新成功： ${fileName}`
@@ -127,12 +115,10 @@ const giteeApi = {
     const data = { access_token: getToken() }
     const [err, res] = await to(axios.post(`${baseApiURL}/repos/zclzone/gitee-blog-db/forks`, data))
     if (err) {
-      Message.error(`初始化失败，请刷新重试： ${err} `)
       return {
         status: 'Fail'
       }
     }
-    // giteeApi.postRemind()
     return {
       status: 'OK'
     }

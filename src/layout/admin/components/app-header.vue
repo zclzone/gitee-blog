@@ -2,7 +2,7 @@
   <div class="header-container">
     <div class="logo">
       <router-link to="/">
-        <h2>奇思笔记Admin</h2>
+        <h2>{{title}}Admin</h2>
       </router-link>
     </div>
     <div class="info">
@@ -20,6 +20,8 @@
 </template>
 
 <script>
+const { siteOptions } = require('@/settings')
+
 import { removeToken } from '@/utils/cookie-util'
 import { getUser } from '@/utils/cookie-util'
 
@@ -28,14 +30,14 @@ export default {
     const userJson = getUser()
     if (userJson) {
       const { name, avatar_url } = JSON.parse(userJson)
-      this.name = name
       this.avatar_url = avatar_url
     }
   },
   data() {
     return {
       avatar_url: 'https://avatars2.githubusercontent.com/u/49337591?s=60&v=4',
-      name: 'Ronnie Zhang'
+      name: siteOptions.author,
+      title: siteOptions.title
     }
   },
   methods: {

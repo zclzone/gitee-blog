@@ -16,7 +16,7 @@
 </template>
 
 <script>
-const { siteOptions } = require('@/settings.js')
+const { siteOptions } = require('@/settings')
 
 export default {
   data() {
