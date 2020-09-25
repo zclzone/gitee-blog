@@ -68,12 +68,11 @@ export default {
     async getData() {
       this.loading = true
       const file = await giteeApi.getFile(`db/_post/postList.json`)
+      this.loading = false
       if (!file) {
-        this.loading = false
         this.$message.error('No data')
         return
       }
-      this.loading = false
       this.postList = JSON.parse(file.content)
       this.postList.name = file.name
       this.postList.path = file.path
@@ -91,7 +90,6 @@ export default {
     },
     handlePageChange(page) {
       this.currentPage = page
-      // this.getData(this.pageSize, this.currentPage)
     },
     add() {
       this.$router.push({ path: `/admin/list/add` })
@@ -116,8 +114,9 @@ export default {
       this.postList.content.data = this.postList.content.data.filter(item => {
         return item.path != this.selectedFile.path
       })
-
+      this.$loading.show()
       res = await giteeApi.updateFile(this.postList.path, this.postList.sha, JSON.stringify(this.postList))
+      this.$loading.hide()
       if (res.status !== 'OK') {
         this.$message.error(res.msg)
       } else {
