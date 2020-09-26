@@ -1,6 +1,5 @@
 <template>
-  <div v-if="show"
-       class="loading-container">
+  <div v-if="show" class="loading-container">
     <div class="loading-mask"></div>
     <div class="loading-content">
       <div class="loading-animate"></div>
@@ -14,7 +13,7 @@ export default {
   props: {
     show: Boolean
   },
-  data () {
+  data() {
     return {
       text: '正在加载...'
     }
@@ -25,6 +24,7 @@ export default {
 .loading-container {
   position: relative;
   text-align: center;
+  z-index: 9999;
   .loading-mask {
     position: fixed;
     top: 0;
