@@ -18,7 +18,7 @@ gitee: [zclzone.gitee.io/gitee-blog](https://zclzone.gitee.io/gitee-blog)
 
 ### 使用方式
 
-#### 1. Fork or Clone 此仓库并安装依赖
+<details><summary><b>1. Fork & Clone 此仓库并安装依赖</b></summary>
 
 当然了，Fork 是可选的，不过对此项目感兴趣的朋友可以点点 Star，或者 Fork 此项目，如果您对此项目有足够兴趣，欢迎提交您宝贵的 Pr 让此项目变得更加完备和好用
 
@@ -28,12 +28,16 @@ gitee: [zclzone.gitee.io/gitee-blog](https://zclzone.gitee.io/gitee-blog)
   npm install
 ```
 
-#### 2. 修改配置 src 文件夹下的配置文件 settings.js
+</details>
+
+<details><summary><b>2. 修改配置 src 文件夹下的配置文件 settings.js</b></summary>
 
 需确保将 giteeApiOptions 的配置信息修改成自己的，至于其他配置信息我计划写一篇博客单独介绍，请留意我的[博客网站](https://qszone.com/gitee-blog)
 ![settings.js](https://gitee.com/zclzone/res/raw/master/images/gitee-blog-settings.png)
 
-#### 3. 构建项目并发布
+</details>
+
+<details><summary><b>3. 构建项目并发布</b></summary>
 
 1. 如果您没有 gitee 账号,您需要先创建一个 [gitee](https://gitee.com/) 账号,并确保账号下没有名为**gitee-blog-db**的仓库
 2. Fork gitee 仓库 [gitee-blog-db](https://gitee.com/qszone/gitee-blog-db)，此仓库将作为博客的“数据库”，或者您也可以 Clone 此仓库再推送到 gitee，仓库名可以自定义，但必须跟 settings.js 下 giteeApiOptions 的 repo 保持一致
@@ -52,3 +56,5 @@ gitee: [zclzone.gitee.io/gitee-blog](https://zclzone.gitee.io/gitee-blog)
   git remote add origin [您创建的空仓库地址]
   git push -u origin master
 ```
+
+</details>
