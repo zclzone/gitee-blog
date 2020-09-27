@@ -12,6 +12,9 @@ import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 Vue.use(mavonEditor)
 
+import loading from '@/utils/loading'
+Vue.use(loading)
+
 
 // 引入样式
 import '@/assets/styles/main.scss'

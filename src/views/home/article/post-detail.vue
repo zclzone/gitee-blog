@@ -17,7 +17,6 @@ import Comment from '@/components/comment'
 import { setPageTitle } from '@/utils/page-title-util'
 
 import { giteeApi } from '@/utils/gitee-api'
-import { getToken } from '@/utils/cookie-util'
 
 export default {
   components: {
@@ -38,25 +37,13 @@ export default {
   methods: {
     async getPostHtml() {
       let postContent = ''
-      // if (getToken()) {
-      if (true) {
-        const file = await giteeApi.getFile(`db/_post/list/${this.name}.md`)
-        if (!file) {
-          return this.postHtml = '请求失败'
-        }
-        postContent = file.content
-      } else {
-        const [err, res] = await this.$to(this.$axios.get(`./db/_post/list/${this.name}.md`))
-        if (err) {
-          return this.postHtml = '请求失败'
-        }
-        postContent = res.data
+      this.$loading.show()
+      const file = await giteeApi.getFile(`db/_post/list/${this.name}.md`)
+      this.$loading.hide()
+      if (!file) {
+        return this.postHtml = '请求失败'
       }
-
-      // let [err, res] = await this.$to(this.$axios.get(`./db/_post/list/${this.name}.md`))
-      // if (err) {
-      //   return this.postHtml = '请求失败'
-      // }
+      postContent = file.content
       const [err, res] = await this.$to(this.$axios.post('https://gitee.com/api/v5/markdown', { text: postContent }))
       if (err) {
         return this.postHtml = '解析失败'

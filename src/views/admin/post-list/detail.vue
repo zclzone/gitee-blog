@@ -72,7 +72,9 @@ export default {
   methods: {
     async getPost(path) {
       if (!path) return
+      this.$loading.show()
       const file = await giteeApi.getFile(path)
+      this.$loading.hide()
       if (!file) {
         this.$message.error('No data')
         return
@@ -80,7 +82,9 @@ export default {
       this.post = file
     },
     async getPostList() {
+      this.$loading.show()
       const file = await giteeApi.getFile(`db/_post/postList.json`)
+      this.$loading.hide()
       if (!file) {
         this.$message.error('No data')
         return
@@ -91,7 +95,9 @@ export default {
       this.postList.sha = file.sha
     },
     async getCategory() {
+      this.$loading.show()
       const file = await giteeApi.getFile('db/_post/category.json')
+      this.$loading.hide()
       if (!file) {
         this.$message.error('No data')
         return
@@ -103,8 +109,10 @@ export default {
         this.updatePost()
         return
       }
+      this.$loading.show()
       const res = await giteeApi.addFile(`db/_post/list/${this.name}.md`, this.post.content)
       if (res.status !== 'OK') {
+        this.$loading.hide()
         this.$message.error(res.msg)
         return
       }
@@ -118,6 +126,7 @@ export default {
         date: new Date()
       })
       const res2 = await giteeApi.updateFile(this.postList.path, this.postList.sha, JSON.stringify(this.postList))
+      this.$loading.hide()
       if (res2.status !== 'OK') {
         this.$message.error(res2.msg)
         return
@@ -126,8 +135,10 @@ export default {
       this.$router.push('/admin/list')
     },
     async updatePost() {
+      this.$loading.show()
       const res = await giteeApi.updateFile(`db/_post/list/${this.name}.md`, this.post.sha, this.post.content)
       if (res.status !== 'OK') {
+        this.$loading.hide()
         this.$message.error(res.msg)
         return
       }
@@ -145,6 +156,7 @@ export default {
         return item
       })
       const res2 = await giteeApi.updateFile(this.postList.path, this.postList.sha, JSON.stringify(this.postList))
+      this.$loading.hide()
       if (res2.status !== 'OK') {
         this.$message.error(res2.msg)
         return
