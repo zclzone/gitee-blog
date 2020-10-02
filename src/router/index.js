@@ -9,7 +9,7 @@ const routes = [
   {
     path: '/',
     component: _ => import('@/layout/home'),
-    redirect: '/index',
+    redirect: '/article',
     hidden: true,
     children: [
       {

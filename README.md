@@ -45,7 +45,7 @@ gitee: [zclzone.gitee.io/gitee-blog](https://zclzone.gitee.io/gitee-blog)
 4. 创建一个空的 gitee 或者 github 仓库，将构建好的代码(dist 文件夹下)推送到此仓库并发布 pages，理论上您可以发布到任何外网能访问的地方，如码云、github 等，具体如何发布这里不作详细介绍，我会在我的[博客](https://qszone.com/gitee-blog)专门写一篇博客介绍如何发布 pages
 5. 发布之后就可以访问了，默认页面是博客首页，后台地址是[您的发布地址/#/admin],如：[https://qszone.com/gitee-blog/#/admin](https://qszone.com/gitee-blog)
 
-以下指令假设您 gitee”数据库“已经存在并且创建了一个空仓库用于发布 pages
+以下指令假设您 gitee “数据库” 已经存在并且创建了一个空仓库用于发布 pages
 
 ```
   npm run build

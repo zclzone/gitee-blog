@@ -7,7 +7,8 @@
       <div class="nav-menu">
         <ul>
           <li v-for="(value,key) in navMenu" :key="key" :class="{'menu-item': true,'current': current == value}">
-            <router-link :to="key">{{value}}</router-link>
+            <a v-if="key.startsWith('http')" :href="key">{{value}}</a>
+            <router-link v-else :to="key">{{value}}</router-link>
           </li>
         </ul>
       </div>

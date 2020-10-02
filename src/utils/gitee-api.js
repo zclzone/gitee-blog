@@ -1,6 +1,6 @@
 import axios from '@/ajax/request'
 import { getToken } from '@/utils/cookie-util'
-import { to, utf8ToBase64, base64ToUtf8 } from './common'
+import { to, utf8ToBase64, base64ToUtf8 } from '@/utils/common'
 
 const { giteeApiOptions } = require('@/settings')
 const { baseApiURL, owner, repo } = giteeApiOptions
@@ -9,8 +9,7 @@ const baseRepoURL = `${baseApiURL}/repos/${owner}/${repo}`
 
 const giteeApi = {
   getFileSha: async (fileName) => {
-    const params = { access_token: getToken() }
-    const [err, res] = await to(axios.get(`${baseRepoURL}/contents/${fileName}`, { params }))
+    const [err, res] = await to(axios.get(`${baseRepoURL}/contents/${fileName}`))
     if (err) {
       return ''
     }
@@ -21,8 +20,7 @@ const giteeApi = {
   },
 
   getFile: async (fileName) => {
-    const params = { access_token: getToken() }
-    const [err, res] = await to(axios.get(`${baseRepoURL}/contents/${fileName}`, { params }))
+    const [err, res] = await to(axios.get(`${baseRepoURL}/contents/${fileName}`))
     if (err) {
       return null
     }

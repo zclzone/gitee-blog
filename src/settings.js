@@ -1,17 +1,18 @@
 module.exports = {
   // 页面title
-  title: '奇思笔记',
+  title: '启始笔记',
   // 发布pages的仓库名（博客部署文件存放的仓库名）
   pagesRepo: 'gitee-blog',
   // 网站配置信息
   siteOptions: {
-    title: '奇思笔记',
+    title: '启始笔记',
     subtitle: '孤光自照，肝胆皆冰雪',
     author: '张传龙',
-    description: '痴迷于前端的全栈工程师',
+    description: '前端全栈开发者',
     github: 'https://github.com/zclzone/gitee-blog',
     navMenu: {
-      '/index': '首页',
+      'https://qszone.com': '首页', //外链
+      // '/index': '首页',
       '/article': '文章',
       '/works': '作品',
       '/article/关于本站': '关于本站'
