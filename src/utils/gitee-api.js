@@ -90,7 +90,7 @@ const giteeApi = {
     const [err, res] = await to(axios.put(`${baseRepoURL}/contents/${fileName}`, data))
     if (err) {
       return {
-        status: 'Fail',
+        status: "Fail",
         msg: `更新失败： ${err}`
       }
     }
