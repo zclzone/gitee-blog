@@ -4,9 +4,9 @@
 
 ### 预览
 
-github: [qszone.com/blog](https://qszone.com/gitee-blog)
+github: [qszone.com/blog](https://qszone.com/blog)
 
-gitee: [zclzone.gitee.io/blog](https://zclzone.gitee.io/gitee-blog)
+gitee: [zclzone.gitee.io/blog](https://zclzone.gitee.io/blog)
 
 ### 亮点
 
