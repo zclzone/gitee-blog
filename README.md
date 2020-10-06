@@ -1,4 +1,4 @@
-# [启始博客](https://github.com/zclzone/blog)
+# [奇思笔记](https://github.com/zclzone/blog)
 
 > 基于 Gitee-api + Vue + Markdown 的个人博客网站，完全免费，无需个人服务器即可在线维护博客
 

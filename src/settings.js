@@ -1,11 +1,11 @@
 module.exports = {
   // 页面title
-  title: '启始博客',
+  title: '奇思笔记',
   // 发布pages的仓库名（博客部署文件存放的仓库名）
   pagesRepo: 'blog',
   // 网站配置信息
   siteOptions: {
-    title: '启始博客',
+    title: '奇思笔记',
     subtitle: '孤光自照，肝胆皆冰雪',
     author: '张传龙',
     description: '前端全栈开发者',

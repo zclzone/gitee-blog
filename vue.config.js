@@ -1,5 +1,5 @@
 const settings = require('./src/settings.js')
-const title = settings.title || '启始博客'
+const title = settings.title || '奇思笔记'
 
 module.exports = {
   // publicPath: './',
