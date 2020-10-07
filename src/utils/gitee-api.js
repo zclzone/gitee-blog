@@ -111,7 +111,7 @@ const giteeApi = {
 
   forkRepo: async _ => {
     const data = { access_token: getToken() }
-    const [err, res] = await to(axios.post(`${baseApiURL}/repos/zclzone/gitee-blog-db/forks`, data))
+    const [err, res] = await to(axios.post(`${baseApiURL}/repos/zclzone/gitee-db/forks`, data))
     if (err) {
       return {
         status: 'Fail'
