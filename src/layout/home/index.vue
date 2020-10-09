@@ -12,13 +12,13 @@ import AppMain from './components/app-main'
 export default {
   components: {
     AppHeader,
-    AppMain
+    AppMain,
   },
 }
 </script>
 
 <style>
 .home {
-  height: 100%;
+  min-height: 100%;
 }
 </style>

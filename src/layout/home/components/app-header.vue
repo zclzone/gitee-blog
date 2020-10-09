@@ -6,7 +6,11 @@
       </div>
       <div class="nav-menu">
         <ul>
-          <li v-for="(value,key) in navMenu" :key="key" :class="{'menu-item': true,'current': current == value}">
+          <li
+            v-for="(value,key) in navMenu"
+            :key="key"
+            :class="{'menu-item': true,'current': current == value}"
+          >
             <a v-if="key.startsWith('http')" :href="key">{{value}}</a>
             <router-link v-else :to="key">{{value}}</router-link>
           </li>
@@ -28,14 +32,13 @@ export default {
     }
   },
   watch: {
-    '$route': {
+    $route: {
       immediate: true,
       handler({ path }) {
         this.current = this.navMenu[path]
-      }
-    }
-  }
-
+      },
+    },
+  },
 }
 </script>
 
@@ -83,7 +86,7 @@ export default {
             color: var(--main-color);
           }
           &.current::before {
-            content: "";
+            content: '';
             position: absolute;
             background: var(--main-color);
             width: 100%;
