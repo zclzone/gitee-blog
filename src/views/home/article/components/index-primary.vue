@@ -4,7 +4,7 @@
       <h1 class="header-title" v-html="headerTitle" />
     </header>
     <section class="content">
-      <PostList :postList="postList" />
+      <postList :postList="postList" />
     </section>
   </article>
 </template>
@@ -17,15 +17,15 @@ export default {
       type: Array,
       default() {
         return []
-      }
+      },
     },
     headerTitle: {
       type: String,
-      default: "所有文章"
-    }
+      default: '所有文章',
+    },
   },
   components: {
-    PostList
+    PostList,
   },
 }
 </script>
@@ -45,7 +45,7 @@ export default {
     position: relative;
     color: var(--main-color);
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       width: 80%;
       height: 2px;

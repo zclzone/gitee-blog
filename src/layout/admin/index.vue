@@ -51,7 +51,7 @@ export default {
         location.href = getOauthUrl()
       }
     } else {
-      let hashPath = location.hash && location.hash.replace('#', '') || ''
+      let hashPath = (location.hash && location.hash.replace('#', '')) || ''
       if (!hashPath.startsWith('/admin')) {
         location.hash = '/admin'
       }

@@ -5,26 +5,28 @@
         <router-link :to="'/article/' + item.name">
           <h3 class="post-title">{{item.name}}</h3>
         </router-link>
-        <span class="post-author"> — {{item.author}}</span>
+        <span class="post-author sm-hide">— {{item.author}}</span>
       </div>
       <p class="post-description">{{item.description}}</p>
       <div class="post-info">
-        <span class="post-category">类别：<router-link :to="'/article?category=' + item.category">{{item.category}}</router-link></span>
-        <span class="post-date">{{item.date | dateFormat}}</span>
+        <span class="post-category">
+          类别：
+          <router-link :to="'/article?category=' + item.category">{{item.category}}</router-link>
+        </span>
+        <span class="post-date sm-hide">{{item.date | dateFormat}}</span>
       </div>
     </li>
   </ul>
 </template>
 
 <script>
-
 export default {
   props: {
     postList: {
       type: Array,
       default() {
         return []
-      }
+      },
     },
   },
 }

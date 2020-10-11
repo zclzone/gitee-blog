@@ -5,6 +5,7 @@ import router from './router'
 // 引入Element UI
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import 'element-ui/lib/theme-chalk/display.css'
 Vue.use(Element)
 
 // 引入mavonEditor
@@ -28,8 +29,8 @@ Vue.prototype.$axios = axios
 Vue.prototype.$to = to
 Vue.prototype.guid = () => {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-    return v.toString(16);
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8)
+    return v.toString(16)
   })
 }
 

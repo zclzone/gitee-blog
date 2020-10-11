@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <nav class="header-nav">
-      <div class="nav-brand">
+      <div class="nav-brand sm-hide">
         <router-link to="/">{{title}}</router-link>
       </div>
       <div class="nav-menu">

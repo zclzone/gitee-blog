@@ -16,7 +16,7 @@
       style="width: 100%"
       v-loading="loading"
     >
-      <el-table-column label="Seq" type="index" width="100"></el-table-column>
+      <el-table-column label="序号" type="index" width="100"></el-table-column>
       <el-table-column
         :key="index"
         :label="item.title"
@@ -56,32 +56,37 @@ export default {
       postList: {},
       columns: [
         {
-          title: 'name',
+          title: '标题',
           prop: 'name',
           width: 120,
         },
         {
-          title: 'description',
+          title: '简介',
           prop: 'description',
           width: 120,
         },
         {
-          title: 'category',
+          title: '分类',
           prop: 'category',
           width: 120,
         },
         {
-          title: 'author',
+          title: '作者',
           prop: 'author',
           width: 120,
         },
         {
-          title: 'path',
+          title: '是否推荐',
+          prop: 'isRecommend',
+          width: 120,
+        },
+        {
+          title: '路径',
           prop: 'path',
           width: 120,
         },
         {
-          title: 'date',
+          title: '发布日期',
           prop: 'date',
           width: 120,
         },

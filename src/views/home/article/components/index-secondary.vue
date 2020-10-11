@@ -2,20 +2,23 @@
   <article class="secondary">
     <section class="post-search">
       <div class="search">
-        <input type="text" v-model="keyword" placeholder="输入关键字" @keyup.enter="search">
+        <input type="text" v-model="keyword" placeholder="输入关键字" @keyup.enter="search" />
         <button class="btn-search el-icon-search" @click="search"></button>
-
       </div>
       <el-divider>分类</el-divider>
       <div class="search-category">
-        <router-link class="category-link" :to="'/article?category=' + key" :key="key" v-for="(value,key) in categories">{{key}}</router-link>
+        <router-link
+          class="category-link"
+          :to="'/article?category=' + key"
+          :key="key"
+          v-for="(value,key) in categories"
+        >{{key}}</router-link>
       </div>
-
     </section>
     <section class="about-author">
       <div class="author-avatar">
         <a href="https://github.com/zclzone" target="_blank">
-          <img src="@/assets/images/author.jpg" alt="">
+          <img src="@/assets/images/author.jpg" alt />
         </a>
       </div>
 
@@ -23,12 +26,13 @@
       <p class="author-introduction">[ {{description}} ]</p>
 
       <div class="skills">
-        <el-tag :key="index" v-for="(item,index) in skills" :color="randomColor()">
-          {{item}}
-        </el-tag>
+        <el-tag :key="index" v-for="(item,index) in skills" :color="randomColor()">{{item}}</el-tag>
       </div>
 
-      <el-divider>Star Me<br />Contact Me</el-divider>
+      <el-divider>
+        Star Me
+        <br />Contact Me
+      </el-divider>
 
       <div class="contact-me">
         <el-tooltip effect="light" content="github" placement="bottom">
@@ -38,7 +42,7 @@
         </el-tooltip>
         <a href="#" class="weixin">
           <i class="myIcon myIcon-weixin"></i>
-          <img src="@/assets/images/weixin.jpg" alt="" class="weixin">
+          <img src="@/assets/images/weixin.jpg" alt class="weixin" />
         </a>
       </div>
     </section>
@@ -46,14 +50,24 @@
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="最新文章" name="recent">
           <ul class="list">
-            <router-link :to="'/article/' + item.name" class="list-item" v-for="(item,index) in recentList" :key="index">
+            <router-link
+              :to="'/article/' + item.name"
+              class="list-item"
+              v-for="(item,index) in recentList"
+              :key="index"
+            >
               <li>{{item.name}}</li>
             </router-link>
           </ul>
         </el-tab-pane>
         <el-tab-pane label="推荐文章" name="recommend">
           <ul class="list">
-            <router-link :to="'/article/' + item.name" class="list-item" v-for="(item,index) in recommendList" :key="index">
+            <router-link
+              :to="'/article/' + item.name"
+              class="list-item"
+              v-for="(item,index) in recommendList"
+              :key="index"
+            >
               <li>{{item.name}}</li>
             </router-link>
           </ul>
@@ -72,7 +86,7 @@ export default {
       type: Array,
       default() {
         return []
-      }
+      },
     },
   },
   data() {
@@ -81,9 +95,20 @@ export default {
       author: siteOptions.author,
       description: siteOptions.description,
       github: siteOptions.github,
-      colors: ['#005387', '#8cb811', '#fdb813', '#88aca1', '#788cb6', '#a1a1a4', '#ced7df', '#decba5', '#566127', '#76daff'],
+      colors: [
+        '#005387',
+        '#8cb811',
+        '#fdb813',
+        '#88aca1',
+        '#788cb6',
+        '#a1a1a4',
+        '#ced7df',
+        '#decba5',
+        '#566127',
+        '#76daff',
+      ],
       keyword: '',
-      activeName: 'recent'
+      activeName: 'recent',
     }
   },
   methods: {
@@ -92,18 +117,20 @@ export default {
     },
     search() {
       if (this.keyword) {
-        this.$router.push({ path: '/article', query: { keyword: this.keyword } })
+        this.$router.push({
+          path: '/article',
+          query: { keyword: this.keyword },
+        })
       } else {
         this.$router.push({ path: '/article' })
       }
     },
-    handleClick(tab) {
-    }
+    handleClick(tab) {},
   },
   computed: {
     categories() {
       let categories = {}
-      this.postListData.forEach(item => {
+      this.postListData.forEach((item) => {
         categories[item.category] = item.category
       })
       return categories
@@ -112,10 +139,10 @@ export default {
       // })
     },
     recentList() {
-      return this.postListData
+      return this.postListData.slice(0, 10)
     },
     recommendList() {
-      return this.postListData.slice(0, 2)
+      return this.postListData.filter((item) => !!item.isRecommend)
     },
   },
 }

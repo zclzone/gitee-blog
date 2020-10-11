@@ -6,7 +6,7 @@
         <el-col :sm="18">
           <primary :postList="postList" :headerTitle="headerTitle" />
         </el-col>
-        <el-col :sm="6">
+        <el-col :sm="6" class="sm-hide">
           <secondary :postListData="postListData" />
         </el-col>
       </el-row>
@@ -30,11 +30,11 @@ export default {
     return {
       bannerData: {
         title: siteOptions.title.split('').join(' '),
-        description: siteOptions.subtitle
+        description: siteOptions.subtitle,
       },
       postListData: [],
       postList: [],
-      headerTitle: ''
+      headerTitle: '',
     }
   },
   async mounted() {
@@ -45,11 +45,15 @@ export default {
       this.$message.error('No data')
       return
     }
-    this.postListData = JSON.parse(file.content).content.data
+    this.postListData = JSON.parse(file.content).content.data.sort(
+      (a, b) => new Date(b.date) - new Date(a.date)
+    )
     this.filterPostList()
   },
   components: {
-    Banner, Primary, Secondary
+    Banner,
+    Primary,
+    Secondary,
   },
   methods: {
     filterPostList() {
@@ -57,28 +61,32 @@ export default {
       if (category) {
         this.headerTitle = `类别：<i>"${category}"</i>`
         setPageTitle(`类别 | ${category}`)
-        return this.postList = this.postListData.filter(item => item.category === category)
+        return (this.postList = this.postListData.filter(
+          (item) => item.category === category
+        ))
       }
       if (keyword) {
         this.headerTitle = `<i>"${keyword}" </i>的搜索结果`
         setPageTitle(`搜索结果 | ${keyword}`)
-        return this.postList = this.postListData.filter(post => {
-          return [post.author, post.name, post.category, post.description].some(item => {
-            return item.toLowerCase().indexOf(keyword.toLowerCase()) !== -1
-          })
-        })
+        return (this.postList = this.postListData.filter((post) => {
+          return [post.author, post.name, post.category, post.description].some(
+            (item) => {
+              return item.toLowerCase().indexOf(keyword.toLowerCase()) !== -1
+            }
+          )
+        }))
       }
-      this.headerTitle = "所有文章"
+      this.headerTitle = '所有文章'
       this.postList = this.postListData
-    }
+    },
   },
   watch: {
     '$route.query': {
       immediate: true,
       handler({ category, keyword }) {
         this.filterPostList()
-      }
-    }
+      },
+    },
   },
 }
 </script>

@@ -1,11 +1,16 @@
 <template>
   <div>
     <div class="btns">
-      <router-link to='/admin/list' style="margin-right:10px;">
-        <el-button type="info" icon="el-icon-close" plain>退出
-        </el-button>
+      <router-link to="/admin/list" style="margin-right:10px;">
+        <el-button type="info" icon="el-icon-close" plain>退出</el-button>
       </router-link>
-      <el-button v-if="action == 'edit' || action == 'add'" type="primary" icon="el-icon-finished" plain @click="savePost">保存</el-button>
+      <el-button
+        v-if="action == 'edit' || action == 'add'"
+        type="primary"
+        icon="el-icon-finished"
+        plain
+        @click="savePost"
+      >保存</el-button>
     </div>
     <el-form ref="postForm" label-width="50px" label-position="left">
       <el-row class="form-row">
@@ -21,13 +26,18 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="13" :offset="1">
+        <el-col :span="10" :offset="1">
           <el-form-item label="简介">
             <el-input v-model="description" placeholder="文章简介"></el-input>
           </el-form-item>
         </el-col>
+        <el-col :span="2" :offset="1">
+          <el-form-item label="推荐">
+            <el-checkbox v-model="isRecommend" />
+          </el-form-item>
+        </el-col>
       </el-row>
-      <mavon-editor v-model="post.content" ref=md />
+      <mavon-editor v-model="post.content" ref="md" />
     </el-form>
   </div>
 </template>
@@ -61,7 +71,8 @@ export default {
       name: this.$route.query.name,
       category: this.$route.query.category || '',
       description: this.$route.query.description || '',
-      author: siteOptions.author || ''
+      isRecommend: !!this.$route.query.isRecommend || false,
+      author: siteOptions.author || '',
     }
   },
   mounted() {
@@ -110,7 +121,10 @@ export default {
         return
       }
       this.$loading.show()
-      const res = await giteeApi.addFile(`db/_post/list/${this.name}.md`, this.post.content)
+      const res = await giteeApi.addFile(
+        `db/_post/list/${this.name}.md`,
+        this.post.content
+      )
       if (res.status !== 'OK') {
         this.$loading.hide()
         this.$message.error(res.msg)
@@ -119,13 +133,18 @@ export default {
       this.postList.content.data.unshift({
         name: this.name,
         path: `db/_post/list/${this.name}.md`,
-        description: this.description,
         category: this.category,
+        description: this.description,
+        isRecommend: this.isRecommend,
         author: this.author,
-        cover: "",
-        date: new Date()
+        cover: '',
+        date: new Date(),
       })
-      const res2 = await giteeApi.updateFile(this.postList.path, this.postList.sha, JSON.stringify(this.postList))
+      const res2 = await giteeApi.updateFile(
+        this.postList.path,
+        this.postList.sha,
+        JSON.stringify(this.postList)
+      )
       this.$loading.hide()
       if (res2.status !== 'OK') {
         this.$message.error(res2.msg)
@@ -136,26 +155,35 @@ export default {
     },
     async updatePost() {
       this.$loading.show()
-      const res = await giteeApi.updateFile(`db/_post/list/${this.name}.md`, this.post.sha, this.post.content)
+      const res = await giteeApi.updateFile(
+        `db/_post/list/${this.name}.md`,
+        this.post.sha,
+        this.post.content
+      )
       if (res.status !== 'OK') {
         this.$loading.hide()
         this.$message.error(res.msg)
         return
       }
 
-      this.postList.content.data = this.postList.content.data.map(item => {
+      this.postList.content.data = this.postList.content.data.map((item) => {
         if (item.path == this.path) {
           return {
             ...item,
             name: this.name,
             description: this.description,
+            isRecommend: this.isRecommend,
             category: this.category,
-            cover: "",
+            cover: '',
           }
         }
         return item
       })
-      const res2 = await giteeApi.updateFile(this.postList.path, this.postList.sha, JSON.stringify(this.postList))
+      const res2 = await giteeApi.updateFile(
+        this.postList.path,
+        this.postList.sha,
+        JSON.stringify(this.postList)
+      )
       this.$loading.hide()
       if (res2.status !== 'OK') {
         this.$message.error(res2.msg)
@@ -163,9 +191,8 @@ export default {
       }
       this.$message(res2.msg)
       this.$router.push('/admin/list')
-    }
-  }
-
+    },
+  },
 }
 </script>
 
@@ -178,7 +205,7 @@ export default {
   margin-top: 5px;
   position: relative;
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     bottom: 0;
     left: 0;

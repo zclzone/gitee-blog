@@ -52,3 +52,9 @@ html[theme='dark-mode'] {
 .el-tabs__active-bar {
   background: var(--secondary-color) !important;
 }
+
+@media screen and (max-width: 768px) {
+  .sm-hide {
+    display: none;
+  }
+}
