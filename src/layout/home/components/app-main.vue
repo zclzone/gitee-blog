@@ -9,5 +9,6 @@
 <style lang="scss">
 .main-container {
   height: 100%;
+  min-width: 360px;
 }
 </style>

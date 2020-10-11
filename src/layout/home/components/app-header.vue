@@ -46,6 +46,7 @@ export default {
 <style lang="scss" scoped>
 .header {
   width: 100%;
+  min-width: 360px;
   background: var(--front-color);
   position: -webkit-sticky;
   position: sticky;
@@ -73,9 +74,10 @@ export default {
       ul {
         list-style: none;
         font-size: 16px;
+        display: flex;
+
         .menu-item {
-          display: inline-block;
-          padding: 0 20px;
+          padding: 0 15px;
           position: relative;
           a {
             color: var(--secondary-color);
