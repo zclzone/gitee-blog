@@ -76,18 +76,23 @@ export default {
           width: 120,
         },
         {
-          title: '是否推荐',
-          prop: 'isRecommend',
-          width: 120,
-        },
-        {
           title: '路径',
           prop: 'path',
           width: 120,
         },
         {
-          title: '发布日期',
+          title: '创建日期',
           prop: 'date',
+          width: 120,
+        },
+        {
+          title: '是否推荐',
+          prop: 'isRecommend',
+          width: 120,
+        },
+        {
+          title: '是否发布',
+          prop: 'isPublish',
           width: 120,
         },
       ],

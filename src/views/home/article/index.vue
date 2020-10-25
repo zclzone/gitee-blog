@@ -45,9 +45,9 @@ export default {
       this.$message.error('No data')
       return
     }
-    this.postListData = JSON.parse(file.content).content.data.sort(
-      (a, b) => new Date(b.date) - new Date(a.date)
-    )
+    this.postListData = JSON.parse(file.content)
+      .content.data.filter((item) => !!item.isPublish)
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
     this.filterPostList()
   },
   components: {

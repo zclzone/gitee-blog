@@ -19,19 +19,24 @@
             <el-input v-model="name" placeholder="文章标题" :disabled="action == 'edit'"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="4" :offset="1">
+        <el-col :span="3" :offset="1">
           <el-form-item label="分类">
             <el-select v-model="category" placeholder="文章类型">
               <el-option :label="item" :value="item" v-for="item in categories" :key="item"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="10" :offset="1">
+        <el-col :span="9" :offset="1">
           <el-form-item label="简介">
             <el-input v-model="description" placeholder="文章简介"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="2" :offset="1">
+          <el-form-item label="发布">
+            <el-checkbox v-model="isPublish" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="2">
           <el-form-item label="推荐">
             <el-checkbox v-model="isRecommend" />
           </el-form-item>
@@ -72,6 +77,7 @@ export default {
       category: this.$route.query.category || '',
       description: this.$route.query.description || '',
       isRecommend: !!this.$route.query.isRecommend || false,
+      isPublish: !!this.$route.query.isPublish || false,
       author: siteOptions.author || '',
     }
   },
@@ -136,6 +142,7 @@ export default {
         category: this.category,
         description: this.description,
         isRecommend: this.isRecommend,
+        isPublish: this.isPublish,
         author: this.author,
         cover: '',
         date: new Date(),
@@ -173,6 +180,7 @@ export default {
             name: this.name,
             description: this.description,
             isRecommend: this.isRecommend,
+            isPublish: this.isPublish,
             category: this.category,
             cover: '',
           }
