@@ -51,24 +51,24 @@
         <el-tab-pane label="最新文章" name="recent">
           <ul class="list">
             <router-link
-              :to="'/article/' + item.name"
+              :to="'/article/' + item.id"
               class="list-item"
               v-for="(item,index) in recentList"
               :key="index"
             >
-              <li>{{item.name}}</li>
+              <li>{{item.title}}</li>
             </router-link>
           </ul>
         </el-tab-pane>
         <el-tab-pane label="推荐文章" name="recommend">
           <ul class="list">
             <router-link
-              :to="'/article/' + item.name"
+              :to="'/article/' + item.id"
               class="list-item"
               v-for="(item,index) in recommendList"
               :key="index"
             >
-              <li>{{item.name}}</li>
+              <li>{{item.title}}</li>
             </router-link>
           </ul>
         </el-tab-pane>
@@ -134,15 +134,12 @@ export default {
         categories[item.category] = item.category
       })
       return categories
-      // return this.postListData.map(item => {
-      //   return item.category
-      // })
     },
     recentList() {
       return this.postListData.slice(0, 10)
     },
     recommendList() {
-      return this.postListData.filter((item) => !!item.isRecommend)
+      return this.postListData.filter((item) => item.isRecommend)
     },
   },
 }

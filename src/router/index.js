@@ -27,7 +27,7 @@ const routes = [
         }
       },
       {
-        path: 'article/:name*',
+        path: 'article/:id*',
         component: _ => import('@/views/home/article/post-detail'),
       },
       {

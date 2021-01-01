@@ -2,8 +2,8 @@
   <ul class="post-list">
     <li class="post-item" v-for="(item,index) in postList" :key="index">
       <div class="item-title">
-        <router-link :to="'/article/' + item.name">
-          <h3 class="post-title">{{item.name}}</h3>
+        <router-link :to="'/article/' + item.id">
+          <h3 class="post-title">{{item.title}}</h3>
         </router-link>
         <span class="post-author sm-hide">— {{item.author}}</span>
       </div>
@@ -13,7 +13,7 @@
           类别：
           <router-link :to="'/article?category=' + item.category">{{item.category}}</router-link>
         </span>
-        <span class="post-date sm-hide">{{item.date | dateFormat}}</span>
+        <span class="post-date sm-hide">{{item.createDate | dateFormat}}</span>
       </div>
     </li>
   </ul>

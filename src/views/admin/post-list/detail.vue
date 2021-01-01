@@ -16,29 +16,34 @@
       <el-row class="form-row">
         <el-col :span="5">
           <el-form-item label="标题">
-            <el-input v-model="name" placeholder="文章标题" :disabled="action == 'edit'"></el-input>
+            <el-input v-model="post.title" placeholder="文章标题"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="3" :offset="1">
           <el-form-item label="分类">
-            <el-select v-model="category" placeholder="文章类型">
-              <el-option :label="item" :value="item" v-for="item in categories" :key="item"></el-option>
+            <el-select v-model="post.category" placeholder="文章类型">
+              <el-option
+                :label="item.title"
+                :value="item.title"
+                v-for="item in categories"
+                :key="item.id"
+              ></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="9" :offset="1">
           <el-form-item label="简介">
-            <el-input v-model="description" placeholder="文章简介"></el-input>
+            <el-input v-model="post.description" placeholder="文章简介"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="2" :offset="1">
           <el-form-item label="发布">
-            <el-checkbox v-model="isPublish" />
+            <el-checkbox v-model="post.isPublish" />
           </el-form-item>
         </el-col>
         <el-col :span="2">
           <el-form-item label="推荐">
-            <el-checkbox v-model="isRecommend" />
+            <el-checkbox v-model="post.isRecommend" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -49,8 +54,6 @@
 
 <script>
 const { siteOptions } = require('@/settings')
-
-import { giteeApi } from '@/utils/gitee-api'
 
 export default {
   beforeRouteEnter(to, from, next) {
@@ -68,58 +71,37 @@ export default {
   },
   data() {
     return {
-      path: this.$route.query.path,
       action: this.$route.params.action,
-      post: {},
-      postList: {},
+      id: this.$route.query.id || '',
+      post: {
+        isPublish: false,
+        isRecommend: false,
+        author: siteOptions.author || '',
+      },
       categories: [],
-      name: this.$route.query.name,
-      category: this.$route.query.category || '',
-      description: this.$route.query.description || '',
-      isRecommend: !!this.$route.query.isRecommend || false,
-      isPublish: !!this.$route.query.isPublish || false,
-      author: siteOptions.author || '',
     }
   },
   mounted() {
-    this.getPost(this.path)
-    this.getPostList()
+    this.getPost(this.id)
     this.getCategory()
   },
   methods: {
-    async getPost(path) {
-      if (!path) return
+    async getPost(id) {
+      if (!id) return
       this.$loading.show()
-      const file = await giteeApi.getFile(path)
+      const { data } = await this.$axios.get(`/post/${id}`)
       this.$loading.hide()
-      if (!file) {
+      if (!data) {
         this.$message.error('No data')
         return
       }
-      this.post = file
-    },
-    async getPostList() {
-      this.$loading.show()
-      const file = await giteeApi.getFile(`db/_post/postList.json`)
-      this.$loading.hide()
-      if (!file) {
-        this.$message.error('No data')
-        return
-      }
-      this.postList = JSON.parse(file.content)
-      this.postList.name = file.name
-      this.postList.path = file.path
-      this.postList.sha = file.sha
+      this.post = data
     },
     async getCategory() {
       this.$loading.show()
-      const file = await giteeApi.getFile('db/_post/category.json')
+      const { data } = await this.$axios.get('/category')
       this.$loading.hide()
-      if (!file) {
-        this.$message.error('No data')
-        return
-      }
-      this.categories = JSON.parse(file.content).data
+      this.categories = data
     },
     async savePost() {
       if (this.action == 'edit') {
@@ -127,77 +109,17 @@ export default {
         return
       }
       this.$loading.show()
-      const res = await giteeApi.addFile(
-        `db/_post/list/${this.name}.md`,
-        this.post.content
-      )
-      if (res.status !== 'OK') {
-        this.$loading.hide()
-        this.$message.error(res.msg)
-        return
-      }
-      this.postList.content.data.unshift({
-        name: this.name,
-        path: `db/_post/list/${this.name}.md`,
-        category: this.category,
-        description: this.description,
-        isRecommend: this.isRecommend,
-        isPublish: this.isPublish,
-        author: this.author,
-        cover: '',
-        date: new Date(),
-      })
-      const res2 = await giteeApi.updateFile(
-        this.postList.path,
-        this.postList.sha,
-        JSON.stringify(this.postList)
-      )
+      await this.$axios.post('/post', this.post)
       this.$loading.hide()
-      if (res2.status !== 'OK') {
-        this.$message.error(res2.msg)
-        return
-      }
-      this.$message(res2.msg)
+      this.$message('Success')
       this.$router.push('/admin/list')
     },
     async updatePost() {
       this.$loading.show()
-      const res = await giteeApi.updateFile(
-        `db/_post/list/${this.name}.md`,
-        this.post.sha,
-        this.post.content
-      )
-      if (res.status !== 'OK') {
-        this.$loading.hide()
-        this.$message.error(res.msg)
-        return
-      }
-
-      this.postList.content.data = this.postList.content.data.map((item) => {
-        if (item.path == this.path) {
-          return {
-            ...item,
-            name: this.name,
-            description: this.description,
-            isRecommend: this.isRecommend,
-            isPublish: this.isPublish,
-            category: this.category,
-            cover: '',
-          }
-        }
-        return item
-      })
-      const res2 = await giteeApi.updateFile(
-        this.postList.path,
-        this.postList.sha,
-        JSON.stringify(this.postList)
-      )
+      this.post.author = siteOptions.author || ''
+      await this.$axios.put(`/post/${this.id}`, this.post)
       this.$loading.hide()
-      if (res2.status !== 'OK') {
-        this.$message.error(res2.msg)
-        return
-      }
-      this.$message(res2.msg)
+      this.$message('Success')
       this.$router.push('/admin/list')
     },
   },

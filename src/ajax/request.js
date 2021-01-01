@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 const service = axios.create({
-  // baseURL: 'https://gitee.com/',
+  baseURL: 'http://47.113.180.205:3000/',
+  // baseURL: 'http://localhost:3000/',
   timeout: 10000,
   withCredentials: false
 })

@@ -21,8 +21,6 @@ import Secondary from './components/index-secondary'
 
 import { setPageTitle } from '@/utils/page-title-util'
 
-import { giteeApi } from '@/utils/gitee-api'
-
 const { siteOptions } = require('@/settings.js')
 
 export default {
@@ -39,14 +37,14 @@ export default {
   },
   async mounted() {
     this.$loading.show()
-    const file = await giteeApi.getFile(`db/_post/postList.json`)
+    const { data } = await this.$axios.get('/post')
     this.$loading.hide()
-    if (!file) {
+    if (!data || !data.length) {
       this.$message.error('No data')
       return
     }
-    this.postListData = JSON.parse(file.content)
-      .content.data.filter((item) => !!item.isPublish)
+    this.postListData = data
+      .filter((item) => item.isPublish)
       .sort((a, b) => new Date(b.date) - new Date(a.date))
     this.filterPostList()
   },
@@ -69,11 +67,14 @@ export default {
         this.headerTitle = `<i>"${keyword}" </i>的搜索结果`
         setPageTitle(`搜索结果 | ${keyword}`)
         return (this.postList = this.postListData.filter((post) => {
-          return [post.author, post.name, post.category, post.description].some(
-            (item) => {
-              return item.toLowerCase().indexOf(keyword.toLowerCase()) !== -1
-            }
-          )
+          return [
+            post.author,
+            post.title,
+            post.category,
+            post.description,
+          ].some((item) => {
+            return item.toLowerCase().indexOf(keyword.toLowerCase()) !== -1
+          })
         }))
       }
       this.headerTitle = '所有文章'

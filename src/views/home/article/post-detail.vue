@@ -1,13 +1,13 @@
 <template>
   <div class="detail-container">
-    <div class="post-container">
+    <div class="post-container" v-if="post">
       <article class="post-content">
         <header class="post-header">
-          <h1 class="post-title">{{name}}</h1>
+          <h1 class="post-title">{{post.title}}</h1>
         </header>
         <section class="markdown-body post-body" v-html="postHtml"></section>
       </article>
-      <comment :title="name" />
+      <comment :title="post.title + '-' + post.id" />
     </div>
   </div>
 </template>
@@ -15,8 +15,7 @@
 <script>
 import Comment from '@/components/comment'
 import { setPageTitle } from '@/utils/page-title-util'
-
-import { giteeApi } from '@/utils/gitee-api'
+import MarkdownIt from 'markdown-it'
 
 export default {
   components: {
@@ -24,32 +23,24 @@ export default {
   },
   data() {
     return {
-      name: this.$route.params.name,
+      id: this.$route.params.id,
+      post: null,
       postHtml: '',
     }
   },
-  async mounted() {
-    if (this.name) {
-      setPageTitle(this.name)
-      this.getPostHtml()
-    }
+  mounted() {
+    this.getPost()
+    setPageTitle((this.post && this.post.title) || '')
   },
   methods: {
-    async getPostHtml() {
-      let postContent = ''
+    async getPost() {
       this.$loading.show()
-      const file = await giteeApi.getFile(`db/_post/list/${this.name}.md`)
+      const { data } = await this.$axios.get(`/post/${this.id}`)
       this.$loading.hide()
-      if (!file) {
-        return this.postHtml = '请求失败'
-      }
-      postContent = file.content
-      const [err, res] = await this.$to(this.$axios.post('https://gitee.com/api/v5/markdown', { text: postContent }))
-      if (err) {
-        return this.postHtml = '解析失败'
-      }
-      this.postHtml = res.data
-    }
+      this.post = data
+      const md = new MarkdownIt()
+      this.postHtml = md.render(this.post.content)
+    },
   },
 }
 </script>
@@ -69,7 +60,7 @@ export default {
       padding: 50px;
       position: relative;
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         left: 0;
         top: 0;

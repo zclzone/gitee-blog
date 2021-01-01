@@ -17,7 +17,6 @@
 <script>
 import { getToken, setToken } from '@/utils/cookie-util'
 import { getAccessToken, getOauthUrl, getUserInfo } from '@/utils/oauth-util'
-import { giteeApi } from '@/utils/gitee-api'
 
 import AppMenu from './components/app-menu'
 import AppHeader from './components/app-header'

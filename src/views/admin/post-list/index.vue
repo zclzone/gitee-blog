@@ -8,7 +8,7 @@
     </div>
 
     <el-table
-      :data="posts"
+      :data="postList"
       @current-change="handleCurrentChange"
       border
       height="100% - 40"
@@ -47,17 +47,14 @@
 </template>
 
 <script>
-import { giteeApi } from '@/utils/gitee-api'
-import axios from '@/ajax/request'
-
 export default {
   data() {
     return {
-      postList: {},
+      postList: [],
       columns: [
         {
           title: '标题',
-          prop: 'name',
+          prop: 'title',
           width: 120,
         },
         {
@@ -76,13 +73,8 @@ export default {
           width: 120,
         },
         {
-          title: '路径',
-          prop: 'path',
-          width: 120,
-        },
-        {
           title: '创建日期',
-          prop: 'date',
+          prop: 'createDate',
           width: 120,
         },
         {
@@ -99,7 +91,7 @@ export default {
       currentPage: 1,
       pageSize: 20,
       totalCount: 0,
-      selectedFile: null,
+      currentId: null,
       loading: true,
     }
   },
@@ -107,24 +99,19 @@ export default {
     this.getData()
   },
   methods: {
-    handleSelectionChange(val) {
-      this.selectedFile = (val.length && val[0]) || null
-    },
     handleCurrentChange(val) {
-      this.selectedFile = val
+      this.currentId = val && val.id
     },
     async getData() {
       this.loading = true
-      const file = await giteeApi.getFile(`db/_post/postList.json`)
+      const { data } = await this.$axios.get('/post')
       this.loading = false
-      if (!file) {
+      if (!data || !data.length) {
+        this.postList = []
         this.$message.error('No data')
         return
       }
-      this.postList = JSON.parse(file.content)
-      this.postList.name = file.name
-      this.postList.path = file.path
-      this.postList.sha = file.sha
+      this.postList = data
     },
     handlePrev() {
       if (this.currentPage > 1) {
@@ -145,60 +132,30 @@ export default {
       })
     },
     view() {
-      if (this.selectedFile) {
+      if (this.currentId) {
         this.$router.push({
           path: `/admin/list/view`,
           query: {
-            ...this.selectedFile,
+            id: this.currentId,
           },
         })
       }
     },
     edit() {
-      if (this.selectedFile) {
+      if (this.currentId) {
         this.$router.push({
           path: `/admin/list/edit`,
           query: {
-            ...this.selectedFile,
+            id: this.currentId,
           },
         })
       }
     },
     async remove() {
-      if (!this.selectedFile) return
+      if (!this.currentId) return
       if (!confirm('确定删除？')) return
-      let res = await giteeApi.removeFile(this.selectedFile.path)
-      if (res.status !== 'OK') {
-        this.$message.error(res.msg)
-      }
-      this.postList.content.data = this.postList.content.data.filter((item) => {
-        return item.path != this.selectedFile.path
-      })
-      this.$loading.show()
-      res = await giteeApi.updateFile(
-        this.postList.path,
-        this.postList.sha,
-        JSON.stringify(this.postList)
-      )
-      this.$loading.hide()
-      if (res.status !== 'OK') {
-        this.$message.error(res.msg)
-      } else {
-        this.$message(res.msg)
-      }
+      await this.$axios.delete(`/post/${this.currentId}`)
       this.getData()
-    },
-  },
-  computed: {
-    posts() {
-      let list = []
-      if (this.postList.content) {
-        const postArr = this.postList.content.data
-        postArr.forEach((item) => {
-          list.push(item)
-        })
-      }
-      return list
     },
   },
 }

@@ -15,7 +15,7 @@ module.exports = {
       '/article': '文章',
       'https://coolshell.cn': '友情链接',
       // '/works': '作品',
-      '/article/关于本站': '关于本站'
+      '/about': '关于本站'
     },
     skills: ['Vue', 'React', 'JavaScript', 'Css', 'Java', 'C#', 'MySql', 'Sql Server', 'MongoDB'],
   },
