@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const service = axios.create({
   // baseURL: 'http://47.113.180.205:3000/',
-  baseURL: 'http://www.qszone.com/api',
+  baseURL: '/api',
   // baseURL: 'http://localhost:3000/',
   timeout: 10000,
   withCredentials: false

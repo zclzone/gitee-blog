@@ -23,5 +23,6 @@ module.exports = {
   devServer: {
     // proxy: 'http://localhost:3000'
     // proxy: 'http://47.113.180.205:3000'
+    proxy: 'http://blog.qszone.com/'
   }
 }
