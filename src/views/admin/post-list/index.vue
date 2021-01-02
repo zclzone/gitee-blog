@@ -24,7 +24,7 @@
         v-for="(item, index) in columns"
       >
         <template slot-scope="scope">
-          <span v-if="item.prop === 'date'">
+          <span v-if="item.prop === 'createDate'">
             {{
             scope.row[item.prop] | dateFormat
             }}
