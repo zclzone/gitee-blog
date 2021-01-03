@@ -149,7 +149,12 @@ export default {
         this.$router.push({
           path: `/admin/list/view`,
           query: {
-            ...this.selectedFile,
+            path: this.selectedFile.path,
+            name: this.selectedFile.name,
+            category: this.selectedFile.category,
+            description: this.selectedFile.description,
+            isRecommend: this.selectedFile.isRecommend,
+            isPublish: this.selectedFile.isPublish,
           },
         })
       }
