@@ -1,11 +1,12 @@
 <template>
-  <footer class="footer">
+  <footer class="footer" v-if="$route.path === '/' || $route.path === '/article'">
     <div class="footer-container">
       <el-row>
         <el-col :span="18">
           <p class="link">
-            <a href="http://qszone.com" target="_blank">奇思站 qszone.com</a>
-            |
+            <a href="http://www.qszone.com" target="_blank">www.qszone.com</a>
+          </p>
+          <p class="link">
             <a href="http://beian.miit.gov.cn/" target="_blank">赣ICP备2020015008号-1</a>
           </p>
         </el-col>

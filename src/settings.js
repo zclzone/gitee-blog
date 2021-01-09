@@ -11,7 +11,7 @@ module.exports = {
     description: '前端全栈开发者',
     github: 'https://github.com/zclzone/blog',
     navMenu: {
-      'https://qszone.com': '首页', //外链
+      'http://www.qszone.com': '首页', //外链
       '/article': '文章',
       'https://coolshell.cn': '友情链接',
       // '/works': '作品',
