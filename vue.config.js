@@ -2,8 +2,9 @@ const settings = require('./src/settings.js')
 const title = settings.title || '奇思笔记'
 
 module.exports = {
-  publicPath: './',
+  publicPath: '/',
   // publicPath: process.env.NODE_ENV === 'production' ? `/${settings.pagesRepo}/` : './',
+  productionSourceMap: false, //生产环境不需要source map，将其设置为 false 以加速生产环境构建
   chainWebpack: config => {
     config.plugin('html').tap(args => {
       args[0].title = title

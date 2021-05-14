@@ -45,15 +45,10 @@ export default {
           next({ ...to })
         }
       } catch {
-        location.hash = '/admin'
         window.name = location.href
         location.href = getOauthUrl()
       }
     } else {
-      let hashPath = (location.hash && location.hash.replace('#', '')) || ''
-      if (!hashPath.startsWith('/admin')) {
-        location.hash = '/admin'
-      }
       window.name = location.href
       location.href = getOauthUrl()
     }
